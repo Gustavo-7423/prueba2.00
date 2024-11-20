@@ -16,7 +16,8 @@ file_path = "ped_crashes.csv"  # Asegúrate de colocar el archivo CSV en esta ru
 data = pd.read_csv(file_path, thousands=',')
 
 # Limpiar los datos eliminando filas con "uncoded" o "error" en las columnas relevantes
-data_clean = data[~data['Weather Conditions (2016+)'].isin(['uncoded', 'error', 'UNKNOWN'])]  # Puedes agregar más valores si es necesario
+data_clean = data[~data['Weather Conditions (2016+)'].isin(['Uncoded & errors
+', 'error', 'Unknown'])]  # Puedes agregar más valores si es necesario
 
 if option == "Ver Datos":
     # Mostrar los datos en formato tabla
