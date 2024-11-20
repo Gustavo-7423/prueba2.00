@@ -28,10 +28,10 @@ elif main_option == "Ver Gráficos":
     # Segundo selectbox para seleccionar gráficos específicos
     graph_option = st.sidebar.selectbox(
         "Selecciona el gráfico que deseas ver:",
-        ["Accidentes por Mes (Barra)", "Distribución de Edades (Lineas)", "Lesiones Más Graves (Torta)"]
+        ["Accidentes por Mes", "Distribución de Edades", "Lesiones Más Graves", "Dispersión: Días y Meses"]
     )
 
-    if graph_option == "Accidentes por Mes (Barra)":
+    if graph_option == "Accidentes por Mes":
         # Gráfico de barras: Accidentes por mes
         accidents_per_month = (
             data_clean['Crash Month']
@@ -49,10 +49,10 @@ elif main_option == "Ver Gráficos":
         ax1.tick_params(axis='x', rotation=45)
         st.subheader("Accidentes por Mes")
         st.pyplot(fig1)
-        
-        st.markdown("<p style='font-size50px;'>Aqui veremos un grafico de barra el cual nos muestra en concreto los meses y sus accidentes a lo largo de los años 2010-2018  </p>", unsafe_allow_html=True)
+        st.write("Este gráfico muestra el número de accidentes registrados en cada mes del año. "
+                 "Puedes observar las tendencias estacionales y meses con más incidentes.")
 
-    elif graph_option == "Distribución de Edades (Lineas)":
+    elif graph_option == "Distribución de Edades":
         # Gráfico de líneas: Distribución de edades
         data_clean['Person Age'] = pd.to_numeric(data_clean['Person Age'], errors='coerce')  # Convertir edades a numérico
         age_distribution = data_clean['Person Age'].dropna().value_counts().sort_index()
@@ -64,8 +64,10 @@ elif main_option == "Ver Gráficos":
         ax2.tick_params(axis='x', rotation=45)
         st.subheader("Distribución de Edades de Involucrados en Accidentes")
         st.pyplot(fig2)
+        st.write("Este gráfico representa la distribución de edades de las personas involucradas en accidentes. "
+                 "Las edades con mayor cantidad de incidentes son resaltadas.")
 
-    elif graph_option == "Lesiones Más Graves (Torta)":
+    elif graph_option == "Lesiones Más Graves":
         # Gráfico de torta: Lesiones más graves en los accidentes
         if 'Worst Injury in Crash' in data_clean.columns:
             injury_counts = data_clean['Worst Injury in Crash'].value_counts()
@@ -75,8 +77,11 @@ elif main_option == "Ver Gráficos":
             ax3.set_ylabel('')
             st.subheader("Lesiones Más Graves en los Accidentes")
             st.pyplot(fig3)
+            st.write("El gráfico de torta muestra las proporciones de las diferentes categorías de lesiones "
+                     "registradas en los accidentes de tráfico.")
         else:
             st.warning("La columna 'Worst Injury in Crash' no se encuentra en los datos.")
+
     elif graph_option == "Dispersión: Días y Meses":
         # Gráfico de dispersión: Días vs Meses
         if 'Crash Month' in data_clean.columns and 'Crash Day' in data_clean.columns:
