@@ -3,7 +3,7 @@ import streamlit as st
 import matplotlib.pyplot as plt
 
 # Configuración de la aplicación
-st.title("Accidentes por Mes, Edades y Condiciones Climáticas")
+st.title("Accidentes por Mes, Edades y Lesiones más Graves")
 st.subheader("Visualización de datos de accidentes de tráfico")
 
 # Barra lateral para navegación
@@ -55,17 +55,17 @@ elif option == "Ver Gráficos":
     st.subheader("Distribución de Edades de Involucrados en Accidentes")
     st.pyplot(fig2)
 
-    # Gráfico de torta: Condiciones climáticas
-    if 'Weather Conditions (2016+)' in data_clean.columns:
-        weather_counts = data_clean['Weather Conditions (2016+)'].value_counts()
+    # Gráfico de torta: Lesiones más graves en los accidentes
+    if 'Worst Injury in Crash' in data_clean.columns:
+        injury_counts = data_clean['Worst Injury in Crash'].value_counts()
         fig3, ax3 = plt.subplots(figsize=(8, 8))
-        weather_counts.plot(kind='pie', autopct='%1.1f%%', startangle=90, ax=ax3, colors=['#66b3ff','#99ff99','#ffcc99','#ff6666'])
-        ax3.set_title("Distribución de Accidentes según Condiciones Climáticas")
+        injury_counts.plot(kind='pie', autopct='%1.1f%%', startangle=90, ax=ax3, colors=['#ff9999','#66b3ff','#99ff99','#ffcc99','#c2c2f0'])
+        ax3.set_title("Distribución de Lesiones Más Graves en los Accidentes")
         ax3.set_ylabel('')
-        st.subheader("Condiciones Climáticas en los Accidentes")
+        st.subheader("Lesiones Más Graves en los Accidentes")
         st.pyplot(fig3)
     else:
-        st.warning("La columna 'Weather Conditions (2016+)' no se encuentra en los datos.")
+        st.warning("La columna 'Worst Injury in Crash' no se encuentra en los datos.")
 
     # Gráfico de dispersión: Edades
     if 'Person Age' in data_clean.columns:
