@@ -3,14 +3,7 @@ import streamlit as st
 import matplotlib.pyplot as plt
 
 # Configuración de la aplicación
-st.title("Accidentes por Mes, Edades y Lesiones más Graves")
-st.subheader("Visualización de datos de accidentes de tráfico")
-
-# Barra lateral para navegación
-option = st.sidebar.selectbox(
-    "Selecciona una opción", 
-    ["Ver Datos", "Ver Gráficos"]
-)
+st.title("Visualización de Datos de Accidentes de Tráfico")
 
 # Cargar los datos
 file_path = "ped_crashes.csv"  # Asegúrate de colocar el archivo CSV en esta ruta
@@ -19,12 +12,19 @@ data = pd.read_csv(file_path, thousands=',')
 # Limpiar los datos eliminando filas con valores no deseados en columnas clave
 data_clean = data[~data['Weather Conditions (2016+)'].isin(['uncoded', 'error', 'UNKNOWN'])]
 
-if option == "Ver Datos":
+# Sidebar para seleccionar qué gráfico mostrar
+st.sidebar.title("Navegación")
+graph_option = st.sidebar.radio(
+    "Selecciona el gráfico que deseas ver:",
+    ["Ver Datos", "Accidentes por Mes", "Distribución de Edades", "Lesiones Más Graves"]
+)
+
+if graph_option == "Ver Datos":
     # Mostrar los datos limpios en formato tabla
     st.subheader("Datos de Accidentes")
     st.dataframe(data_clean)
 
-elif option == "Ver Gráficos":
+elif graph_option == "Accidentes por Mes":
     # Gráfico de barras: Accidentes por mes
     accidents_per_month = (
         data_clean['Crash Month']
@@ -43,6 +43,7 @@ elif option == "Ver Gráficos":
     st.subheader("Accidentes por Mes")
     st.pyplot(fig1)
 
+elif graph_option == "Distribución de Edades":
     # Gráfico de líneas: Distribución de edades
     data_clean['Person Age'] = pd.to_numeric(data_clean['Person Age'], errors='coerce')  # Convertir edades a numérico
     age_distribution = data_clean['Person Age'].dropna().value_counts().sort_index()
@@ -55,6 +56,7 @@ elif option == "Ver Gráficos":
     st.subheader("Distribución de Edades de Involucrados en Accidentes")
     st.pyplot(fig2)
 
+elif graph_option == "Lesiones Más Graves":
     # Gráfico de torta: Lesiones más graves en los accidentes
     if 'Worst Injury in Crash' in data_clean.columns:
         injury_counts = data_clean['Worst Injury in Crash'].value_counts()
@@ -66,17 +68,3 @@ elif option == "Ver Gráficos":
         st.pyplot(fig3)
     else:
         st.warning("La columna 'Worst Injury in Crash' no se encuentra en los datos.")
-
-    # Gráfico de dispersión: Edades
-    if 'Person Age' in data_clean.columns:
-        fig4, ax4 = plt.subplots(figsize=(10, 6))
-        scatter_data = data_clean['Person Age'].dropna()  # Eliminar valores nulos en edades
-        ax4.scatter(scatter_data, [1] * len(scatter_data), alpha=0.5, c='orange', edgecolors='w')
-        ax4.set_title("Dispersión de Edades en los Accidentes")
-        ax4.set_xlabel("Edad")
-        ax4.set_yticks([])  # Quitar el eje Y ya que no es relevante
-        ax4.set_ylabel("")
-        st.subheader("Dispersión de Edades en los Accidentes")
-        st.pyplot(fig4)
-    else:
-        st.warning("La columna 'Person Age' no se encuentra en los datos.")
