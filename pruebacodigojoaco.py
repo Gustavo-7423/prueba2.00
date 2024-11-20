@@ -44,8 +44,14 @@ elif main_option == "Ver Gráficos":
         fig1 = px.bar(accidents_per_month, 
                       labels={'index': 'Mes', 'value': 'Cantidad de Accidentes'}, 
                       title="Número de Accidentes por Mes")
+
+        # Mostrar los valores mínimo y máximo
+        min_value = accidents_per_month.min()
+        max_value = accidents_per_month.max()
         st.subheader("Accidentes por Mes")
         st.plotly_chart(fig1)
+        st.write(f"Valor mínimo: {min_value}")
+        st.write(f"Valor máximo: {max_value}")
         st.write("Este gráfico muestra el número de accidentes registrados en cada mes del año. "
                  "Puedes observar las tendencias estacionales y meses con más incidentes.")
 
@@ -56,8 +62,14 @@ elif main_option == "Ver Gráficos":
         fig2 = px.line(age_distribution, 
                        labels={'index': 'Edad', 'value': 'Cantidad de Accidentes'}, 
                        title="Distribución de Edades de Involucrados en Accidentes")
+
+        # Mostrar los valores mínimo y máximo
+        min_value = age_distribution.min()
+        max_value = age_distribution.max()
         st.subheader("Distribución de Edades de Involucrados en Accidentes")
         st.plotly_chart(fig2)
+        st.write(f"Valor mínimo: {min_value}")
+        st.write(f"Valor máximo: {max_value}")
         st.write("Este gráfico representa la distribución de edades de las personas involucradas en accidentes. "
                  "Las edades con mayor cantidad de incidentes son resaltadas.")
 
@@ -70,8 +82,14 @@ elif main_option == "Ver Gráficos":
                           values=injury_counts.values, 
                           title="Distribución de Lesiones Más Graves en los Accidentes", 
                           labels={'value': 'Cantidad de Lesiones', 'names': 'Tipo de Lesión'})
+            
+            # Mostrar los valores mínimo y máximo
+            min_value = injury_counts.min()
+            max_value = injury_counts.max()
             st.subheader("Lesiones Más Graves en los Accidentes")
             st.plotly_chart(fig3)
+            st.write(f"Valor mínimo: {min_value}")
+            st.write(f"Valor máximo: {max_value}")
             st.write("El gráfico de torta muestra las proporciones de las diferentes categorías de lesiones "
                      "registradas en los accidentes de tráfico.")
         else:
@@ -85,8 +103,14 @@ elif main_option == "Ver Gráficos":
                           orientation='h', 
                           labels={'index': 'Ciudad o Municipio', 'value': 'Cantidad de Accidentes'}, 
                           title="Número de Accidentes por Ciudad o Municipio")
+            
+            # Mostrar los valores mínimo y máximo
+            min_value = city_counts.min()
+            max_value = city_counts.max()
             st.subheader("Accidentes por Ciudad o Municipio")
             st.plotly_chart(fig4)
+            st.write(f"Valor mínimo: {min_value}")
+            st.write(f"Valor máximo: {max_value}")
             st.write("Este gráfico de barras horizontales muestra el número de accidentes ocurridos en cada ciudad o municipio. "
                      "Es más fácil de leer cuando hay nombres largos o muchas categorías.")
         else:
@@ -103,8 +127,14 @@ elif main_option == "Ver Gráficos":
                           values=lighting_counts.values, 
                           title="Distribución de Accidentes por Condiciones de Iluminación", 
                           labels={'value': 'Cantidad de Accidentes', 'names': 'Condiciones de Iluminación'})
+            
+            # Mostrar los valores mínimo y máximo
+            min_value = lighting_counts.min()
+            max_value = lighting_counts.max()
             st.subheader("Condiciones de Iluminación en los Accidentes")
             st.plotly_chart(fig5)
+            st.write(f"Valor mínimo: {min_value}")
+            st.write(f"Valor máximo: {max_value}")
             st.write("Este gráfico de torta muestra el porcentaje de accidentes ocurridos bajo diferentes condiciones de iluminación. "
                      "Los valores nulos han sido excluidos para garantizar la precisión de la visualización.")
         else:
