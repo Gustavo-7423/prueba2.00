@@ -77,3 +77,28 @@ elif main_option == "Ver Gráficos":
             st.pyplot(fig3)
         else:
             st.warning("La columna 'Worst Injury in Crash' no se encuentra en los datos.")
+    elif graph_option == "Dispersión: Días y Meses":
+        # Gráfico de dispersión: Días vs Meses
+        if 'Crash Month' in data_clean.columns and 'Crash Day' in data_clean.columns:
+            # Mapear los meses a valores numéricos para el eje Y
+            month_map = {
+                'January': 1, 'February': 2, 'March': 3, 'April': 4, 'May': 5, 'June': 6,
+                'July': 7, 'August': 8, 'September': 9, 'October': 10, 'November': 11, 'December': 12
+            }
+            data_clean['Month Numeric'] = data_clean['Crash Month'].map(month_map)
+            data_clean['Crash Day'] = pd.to_numeric(data_clean['Crash Day'], errors='coerce')  # Convertir días a numérico
+
+            # Crear gráfico de dispersión
+            fig4, ax4 = plt.subplots(figsize=(10, 6))
+            ax4.scatter(data_clean['Crash Day'], data_clean['Month Numeric'], alpha=0.6, color='purple')
+            ax4.set_title("Dispersión de Días y Meses de Choques")
+            ax4.set_xlabel("Día del Mes")
+            ax4.set_ylabel("Mes (numérico)")
+            ax4.set_yticks(range(1, 13))
+            ax4.set_yticklabels(list(month_map.keys()), rotation=45)
+            st.subheader("Dispersión de Días y Meses de Choques")
+            st.pyplot(fig4)
+            st.write("Este gráfico de dispersión muestra la relación entre los días del mes y los meses en los que ocurrieron los accidentes. "
+                     "Ayuda a visualizar en qué días y meses se registraron más choques.")
+        else:
+            st.warning("Las columnas 'Crash Month' o 'Crash Day' no están disponibles en los datos.")
