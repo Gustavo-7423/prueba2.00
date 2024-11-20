@@ -28,7 +28,7 @@ elif main_option == "Ver Gráficos":
     # Segundo selectbox para seleccionar gráficos específicos
     graph_option = st.sidebar.selectbox(
         "Selecciona el gráfico que deseas ver:",
-        ["Accidentes por Mes (Barra)", "Distribución de Edades (Lineas)", "Lesiones Más Graves (Torta)"]
+        ["Accidentes por Mes", "Distribución de Edades (Lineas)", "Lesiones Más Graves (Torta)"]
     )
 
     if graph_option == "Accidentes por Mes":
