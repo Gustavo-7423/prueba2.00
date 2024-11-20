@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 # Configuración de la aplicación
 st.title("Accidentes por Mes y Edades")
-st.subheader("Visualización de accidentes de tráfico organizados por mes y las edades de los involucrados")
+st.subheader("Visualización de accidentes de tráfico organizados por mes, las edades de los involucrados y las condiciones climáticas")
 
 # Barra lateral para navegación
 option = st.sidebar.selectbox("Selecciona una opción", ["Ver Datos", "Ver Gráficos"])
@@ -60,3 +60,15 @@ elif option == "Ver Gráficos":
     # Mostrar gráfico de distribución de edades
     st.subheader("Distribución de Edades de Involucrados en Accidentes")
     st.pyplot(fig2)
+
+    # Gráfico de torta para las condiciones climáticas
+    if 'Weather Condition' in data.columns:
+        weather_counts = data['Weather Condition'].value_counts()  # Contar las condiciones climáticas
+        fig3, ax3 = plt.subplots(figsize=(8, 8))
+        weather_counts.plot(kind='pie', autopct='%1.1f%%', startangle=90, ax=ax3, colors=['#66b3ff','#99ff99','#ffcc99','#ff6666'])
+        ax3.set_title("Distribución de Accidentes según Condiciones Climáticas")
+        ax3.set_ylabel('')  # Eliminar etiqueta de y en el gráfico de torta
+        st.subheader("Condiciones Climáticas en los Accidentes")
+        st.pyplot(fig3)
+    else:
+        st.warning("La columna 'Weather Condition' no se encuentra en los datos.")
