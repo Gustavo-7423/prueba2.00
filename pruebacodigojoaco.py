@@ -47,7 +47,7 @@ elif main_option == "Ver Gráficos":
         fig1 = px.bar(accidents_per_month, 
                       labels={'index': 'Mes', 'value': 'Cantidad de Accidentes'}, 
                       title=f"Número de Accidentes por Mes\
-                      nMin: {min_value} - Max: {max_value}")
+                      Min: {min_value} - Max: {max_value}")
 
         st.subheader("Accidentes por Mes")
         st.plotly_chart(fig1)
