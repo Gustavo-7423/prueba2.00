@@ -1,49 +1,33 @@
-import streamlit as st
 import pandas as pd
-import plotly.express as px
+import streamlit as st
+import matplotlib.pyplot as plt
 
-# Cargar y limpiar datos
-@st.cache_data
-def load_data():
-    file_path = "ped_crashes.csv"  # Ruta fija del archivo subido
-    df = pd.read_csv(file_path)
-    df = df.dropna()  # Eliminar datos NaN
-    return df
+# Configuración de la aplicación
+st.title("Accidentes por Mes del Año")
+st.subheader("Visualización de accidentes de tráfico organizados por mes")
 
-# Cargar datos
-data = load_data()
+# Cargar los datos
+file_path = "ped_crashes.csv"  # Asegúrate de colocar el archivo CSV en esta ruta
+data = pd.read_csv(file_path)
 
-# Configuración de la barra lateral
-st.sidebar.title("Opciones de visualización")
-
-# Seleccionar tipo de gráfico
-chart_type = st.sidebar.selectbox(
-    "Selecciona el tipo de gráfico",
-    ["Gráfico de barras", "Gráfico de dispersión", "Gráfico de torta"]
+# Procesar los datos
+# Contar los accidentes por cada mes y asegurarse de que estén en orden cronológico
+accidents_per_month = (
+    data['Crash Month']
+    .value_counts()
+    .reindex([
+        'January', 'February', 'March', 'April', 'May', 'June', 
+        'July', 'August', 'September', 'October', 'November', 'December'
+    ], fill_value=0)
 )
 
-# Seleccionar columnas para los gráficos
-columns = data.columns
-x_axis = st.sidebar.selectbox("Selecciona el eje X", columns)
-y_axis = st.sidebar.selectbox("Selecciona el eje Y", columns)
+# Crear el gráfico de barras
+fig, ax = plt.subplots()
+accidents_per_month.plot(kind='bar', color='skyblue', ax=ax)
+ax.set_title("Número de Accidentes por Mes")
+ax.set_xlabel("Mes")
+ax.set_ylabel("Cantidad de Accidentes")
+plt.xticks(rotation=45)
 
-if chart_type == "Gráfico de barras":
-    st.header("Gráfico de barras")
-    bar_chart = px.bar(data, x=x_axis, y=y_axis, title="Gráfico de barras")
-    st.plotly_chart(bar_chart)
-
-elif chart_type == "Gráfico de dispersión":
-    st.header("Gráfico de dispersión")
-    scatter_plot = px.scatter(data, x=x_axis, y=y_axis, title="Gráfico de dispersión")
-    st.plotly_chart(scatter_plot)
-
-elif chart_type == "Gráfico de torta":
-    st.header("Gráfico de torta")
-    category = st.sidebar.selectbox("Selecciona la columna para categorizar", columns)
-    pie_chart = px.pie(data, names=category, title="Gráfico de torta")
-    st.plotly_chart(pie_chart)
-
-# Mostrar tabla de datos limpios
-if st.sidebar.checkbox("Mostrar datos limpios"):
-    st.write("Datos después de eliminar valores NaN:")
-    st.dataframe(data)
+# Mostrar el gráfico en Streamlit
+st.pyplot(fig)
