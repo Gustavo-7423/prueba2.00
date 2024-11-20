@@ -49,8 +49,8 @@ elif main_option == "Ver Gráficos":
         ax1.tick_params(axis='x', rotation=45)
         st.subheader("Accidentes por Mes")
         st.pyplot(fig1)
-
-    st.markdown("<p style='font-size50px;'>Aqui veremos un grafico de barra el cual nos muestra en concreto los meses y sus accidentes a lo largo de los años 2010-2018  </p>", unsafe_allow_html=True)
+        
+        st.markdown("<p style='font-size50px;'>Aqui veremos un grafico de barra el cual nos muestra en concreto los meses y sus accidentes a lo largo de los años 2010-2018  </p>", unsafe_allow_html=True)
 
     elif graph_option == "Distribución de Edades (Lineas)":
         # Gráfico de líneas: Distribución de edades
