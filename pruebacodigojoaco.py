@@ -14,8 +14,8 @@ data_clean = data[~data['Weather Conditions (2016+)'].isin(['uncoded', 'error', 
 
 # Sidebar para seleccionar qué gráfico mostrar
 st.sidebar.title("Navegación")
-graph_option = st.sidebar.radio(
-    "Selecciona el gráfico que deseas ver:",
+graph_option = st.sidebar.selectbox(
+    "Selecciona qué deseas visualizar:",
     ["Ver Datos", "Accidentes por Mes", "Distribución de Edades", "Lesiones Más Graves"]
 )
 
