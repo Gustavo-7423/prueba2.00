@@ -9,8 +9,7 @@ st.title("Visualización de Datos de Accidentes de Tráfico")
 file_path = "ped_crashes.csv"  # Asegúrate de colocar el archivo CSV en esta ruta
 data = pd.read_csv(file_path, thousands=',')
 
-# Limpiar los datos eliminando filas con valores no deseados en columnas clave
-data_clean = data[~data['Weather Conditions (2016+)'].isin(['uncoded', 'error', 'UNKNOWN'])]
+
 
 # Sidebar para navegación principal
 st.sidebar.title("Navegación")
@@ -28,7 +27,7 @@ elif main_option == "Ver Gráficos":
     # Segundo selectbox para seleccionar gráficos específicos
     graph_option = st.sidebar.selectbox(
         "Selecciona el gráfico que deseas ver:",
-        ["Accidentes por Mes", "Distribución de Edades", "Lesiones Más Graves"]
+        ["Accidentes por Mes (Barra)", "Distribución de Edades (Lineas)", "Lesiones Más Graves (Torta)"]
     )
 
     if graph_option == "Accidentes por Mes":
