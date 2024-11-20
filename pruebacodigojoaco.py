@@ -68,8 +68,8 @@ elif main_option == "Ver Gráficos":
 
         st.subheader("Distribución de Edades de Involucrados en Accidentes")
         st.plotly_chart(fig2)
-        st.write("Este gráfico representa la distribución de edades de las personas involucradas en accidentes. "
-                 "Las edades con mayor cantidad de incidentes son resaltadas.")
+        st.write("Este gráfico vemos las edades de las personas que mas tienen accidentes de transito y como vemos "
+                 "se nota que la mayor cantidad de incidentes son de [19-29] años.")
 
     elif graph_option == "Lesiones Más Graves":
         # Gráfico de torta: Lesiones más graves en los accidentes (usando Plotly)
