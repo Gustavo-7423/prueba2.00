@@ -62,7 +62,7 @@ elif option == "Ver Gráficos":
     st.pyplot(fig2)
 
     # Gráfico de torta para las condiciones climáticas
-    if 'Weather Condition' in data.columns:
+    if 'Weather Conditions (2016+)' in data.columns:
         weather_counts = data['Weather Conditions (2016+)'].value_counts()  # Contar las condiciones climáticas
         fig3, ax3 = plt.subplots(figsize=(8, 8))
         weather_counts.plot(kind='pie', autopct='%1.1f%%', startangle=90, ax=ax3, colors=['#66b3ff','#99ff99','#ffcc99','#ff6666'])
@@ -71,4 +71,4 @@ elif option == "Ver Gráficos":
         st.subheader("Condiciones Climáticas en los Accidentes")
         st.pyplot(fig3)
     else:
-        st.warning("La columna 'Weather Condition' no se encuentra en los datos.")
+        st.warning("La columna 'Weather Conditions (2016+)' no se encuentra en los datos.")
