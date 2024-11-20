@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 # Configuración de la aplicación
 st.title("Accidentes vehuiculares entre los años 2010-2018 ")
-st.subheader("En esta pagina web veremos un analisis de datos en los cuales podemos ver varios graficos sobre las causas y que factores se 
+st.subheader(" En esta pagina web veremos un analisis de datos en los cuales podemos ver varios graficos sobre las causas y que factores se 
 se repiten mas al momento de un choque al entre los años 2010-2018 ")
 
 # Cargar los datos
