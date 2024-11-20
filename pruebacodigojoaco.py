@@ -28,7 +28,7 @@ elif main_option == "Ver Gráficos":
     # Segundo selectbox para seleccionar gráficos específicos
     graph_option = st.sidebar.selectbox(
         "Selecciona el gráfico que deseas ver:",
-        ["Accidentes por Mes", "Distribución de Edades", "Lesiones Más Graves", "Dispersión: Días"]
+        ["Accidentes por Mes", "Distribución de Edades", "Lesiones Más Graves", "Accidentes por Ciudad o Municipio"]
     )
 
     if graph_option == "Accidentes por Mes":
@@ -82,20 +82,17 @@ elif main_option == "Ver Gráficos":
         else:
             st.warning("La columna 'Worst Injury in Crash' no se encuentra en los datos.")
 
-    elif graph_option == "Dispersión: Días":
-        # Gráfico de dispersión: Días del mes
-        if 'Crash Day' in data_clean.columns:
-            data_clean['Crash Day'] = pd.to_numeric(data_clean['Crash Day'], errors='coerce')  # Convertir días a numérico
-
-            # Crear gráfico de dispersión
-            fig4, ax4 = plt.subplots(figsize=(10, 6))
-            ax4.scatter(data_clean['Crash Day'], range(len(data_clean)), alpha=0.6, color='blue')
-            ax4.set_title("Dispersión de Días de Choques")
-            ax4.set_xlabel("Día del Mes")
-            ax4.set_ylabel("Índice")
-            st.subheader("Dispersión de Días de Choques")
+    elif graph_option == "Accidentes por Ciudad o Municipio":
+        # Gráfico de torta: Accidentes por Ciudad o Municipio
+        if 'City or Township' in data_clean.columns:
+            city_counts = data_clean['City or Township'].value_counts()
+            fig4, ax4 = plt.subplots(figsize=(8, 8))
+            city_counts.plot(kind='pie', autopct='%1.1f%%', startangle=90, ax=ax4, colors=['#ffcc99', '#66b3ff', '#99ff99', '#ff9999'])
+            ax4.set_title("Distribución de Accidentes por Ciudad o Municipio")
+            ax4.set_ylabel('')
+            st.subheader("Accidentes por Ciudad o Municipio")
             st.pyplot(fig4)
-            st.write("Este gráfico de dispersión muestra los días del mes en los que ocurrieron los accidentes. "
-                     "Cada punto representa un accidente individual.")
+            st.write("Este gráfico de torta muestra las proporciones de accidentes ocurridos en diferentes "
+                     "ciudades o municipios. Puedes identificar cuál es el área con más accidentes registrados.")
         else:
-            st.warning("La columna 'Crash Day' no está disponible en los datos.")
+            st.warning("La columna 'City or Township' no está disponible en los datos.")
