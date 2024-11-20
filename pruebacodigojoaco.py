@@ -16,7 +16,7 @@ import matplotlib.pyplot as plt
 # Función para obtener datos de la API REST Countries
 @st.cache_data
 def obtener_datos_api():
-    url = "https://restcountries.com/v3.1/all"
+    url = "ped_crashes.csv"
     respuesta = requests.get(url)
     if respuesta.status_code == 200:
         datos = respuesta.json()
