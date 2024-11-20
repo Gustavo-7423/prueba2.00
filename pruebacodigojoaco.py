@@ -15,15 +15,18 @@ file_path = "ped_crashes.csv"  # Asegúrate de colocar el archivo CSV en esta ru
 # Leer el archivo y eliminar comas como separadores de miles
 data = pd.read_csv(file_path, thousands=',')
 
+# Limpiar los datos eliminando filas con "uncoded" o "error" en las columnas relevantes
+data_clean = data[~data['Weather Conditions (2016+)'].isin(['uncoded', 'error', 'UNKNOWN'])]  # Puedes agregar más valores si es necesario
+
 if option == "Ver Datos":
     # Mostrar los datos en formato tabla
     st.subheader("Datos de Accidentes")
-    st.dataframe(data)  # Mostrar los primeros 20 registros por defecto
+    st.dataframe(data_clean)  # Mostrar los primeros 20 registros por defecto
 
 elif option == "Ver Gráficos":
     # Gráfico de accidentes por mes
     accidents_per_month = (
-        data['Crash Month']
+        data_clean['Crash Month']
         .value_counts()
         .reindex([
             'January', 'February', 'March', 'April', 'May', 'June', 
@@ -44,10 +47,10 @@ elif option == "Ver Gráficos":
     st.pyplot(fig1)
 
     # Procesar el gráfico de distribución de edades
-    data['Person Age'] = pd.to_numeric(data['Person Age'], errors='coerce')  # Convertir a números, ignorando los errores
+    data_clean['Person Age'] = pd.to_numeric(data_clean['Person Age'], errors='coerce')  # Convertir a números, ignorando los errores
 
     # Contar las edades y graficar
-    age_distribution = data['Person Age'].dropna().value_counts().sort_index()  # Eliminar NaN y contar edades
+    age_distribution = data_clean['Person Age'].dropna().value_counts().sort_index()  # Eliminar NaN y contar edades
 
     # Crear el gráfico de líneas de distribución de edades
     fig2, ax2 = plt.subplots(figsize=(10, 6))
@@ -62,8 +65,8 @@ elif option == "Ver Gráficos":
     st.pyplot(fig2)
 
     # Gráfico de torta para las condiciones climáticas
-    if 'Weather Conditions (2016+)' in data.columns:
-        weather_counts = data['Weather Conditions (2016+)'].value_counts()  # Contar las condiciones climáticas
+    if 'Weather Conditions (2016+)' in data_clean.columns:
+        weather_counts = data_clean['Weather Conditions (2016+)'].value_counts()  # Contar las condiciones climáticas
         fig3, ax3 = plt.subplots(figsize=(8, 8))
         weather_counts.plot(kind='pie', autopct='%1.1f%%', startangle=90, ax=ax3, colors=['#66b3ff','#99ff99','#ffcc99','#ff6666'])
         ax3.set_title("Distribución de Accidentes según Condiciones Climáticas")
