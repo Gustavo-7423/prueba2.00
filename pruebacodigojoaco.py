@@ -67,15 +67,16 @@ elif option == "Ver Gráficos":
     else:
         st.warning("La columna 'Weather Conditions (2016+)' no se encuentra en los datos.")
 
-    # Gráfico de dispersión: Edades vs. Año del accidente
-    if 'Crash Year' in data_clean.columns and 'Person Age' in data_clean.columns:
+    # Gráfico de dispersión: Edades
+    if 'Person Age' in data_clean.columns:
         fig4, ax4 = plt.subplots(figsize=(10, 6))
-        scatter_data = data_clean.dropna(subset=['Crash Year', 'Person Age'])  # Eliminar filas con valores nulos
-        ax4.scatter(scatter_data['Crash Year'], scatter_data['Person Age'], alpha=0.5, c='purple', edgecolors='w')
-        ax4.set_title("Relación entre Edades y Años de los Accidentes")
-        ax4.set_xlabel("Año del Accidente")
-        ax4.set_ylabel("Edad")
-        st.subheader("Relación entre Edades y Años de los Accidentes")
+        scatter_data = data_clean['Person Age'].dropna()  # Eliminar valores nulos en edades
+        ax4.scatter(scatter_data, [1] * len(scatter_data), alpha=0.5, c='orange', edgecolors='w')
+        ax4.set_title("Dispersión de Edades en los Accidentes")
+        ax4.set_xlabel("Edad")
+        ax4.set_yticks([])  # Quitar el eje Y ya que no es relevante
+        ax4.set_ylabel("")
+        st.subheader("Dispersión de Edades en los Accidentes")
         st.pyplot(fig4)
     else:
-        st.warning("Las columnas necesarias para el gráfico de dispersión no están disponibles.")
+        st.warning("La columna 'Person Age' no se encuentra en los datos.")
