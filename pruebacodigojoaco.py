@@ -5,7 +5,7 @@ import plotly.express as px
 # Cargar y limpiar datos
 @st.cache_data
 def load_data():
-    file_path = "C:\Users\gusta\Downloads\ped_crashes.csv"  # Ruta fija del archivo subido
+    file_path = "ped_crashes.csv"  # Ruta fija del archivo subido
     df = pd.read_csv(file_path)
     df = df.dropna()  # Eliminar datos NaN
     return df
