@@ -50,7 +50,7 @@ elif main_option == "Ver Gráficos":
         st.subheader("Accidentes por Mes")
         st.pyplot(fig1)
 
-    elif graph_option == "Distribución de Edades":
+    elif graph_option == "Distribución de Edades (Lineas)":
         # Gráfico de líneas: Distribución de edades
         data_clean['Person Age'] = pd.to_numeric(data_clean['Person Age'], errors='coerce')  # Convertir edades a numérico
         age_distribution = data_clean['Person Age'].dropna().value_counts().sort_index()
@@ -63,7 +63,7 @@ elif main_option == "Ver Gráficos":
         st.subheader("Distribución de Edades de Involucrados en Accidentes")
         st.pyplot(fig2)
 
-    elif graph_option == "Lesiones Más Graves":
+    elif graph_option == "Lesiones Más Graves (Torta)":
         # Gráfico de torta: Lesiones más graves en los accidentes
         if 'Worst Injury in Crash' in data_clean.columns:
             injury_counts = data_clean['Worst Injury in Crash'].value_counts()
