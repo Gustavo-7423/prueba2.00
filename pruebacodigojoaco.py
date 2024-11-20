@@ -28,7 +28,7 @@ elif main_option == "Ver Gráficos":
     # Segundo selectbox para seleccionar gráficos específicos
     graph_option = st.sidebar.selectbox(
         "Selecciona el gráfico que deseas ver:",
-        ["Accidentes por Mes", "Distribución de Edades", "Lesiones Más Graves", "Accidentes por Ciudad o Municipio"]
+        ["Accidentes por Mes", "Distribución de Edades", "Lesiones Más Graves", "Accidentes por Ciudad o Municipio", "Condiciones de Iluminación"]
     )
 
     if graph_option == "Accidentes por Mes":
@@ -97,3 +97,18 @@ elif main_option == "Ver Gráficos":
                      "Es más fácil de leer cuando hay nombres largos o muchas categorías.")
         else:
             st.warning("La columna 'City or Township' no está disponible en los datos.")
+
+    elif graph_option == "Condiciones de Iluminación":
+        # Gráfico de torta: Condiciones de iluminación
+        if 'Lighting Conditions' in data_clean.columns:
+            lighting_counts = data_clean['Lighting Conditions'].value_counts()
+            fig5, ax5 = plt.subplots(figsize=(8, 8))
+            lighting_counts.plot(kind='pie', autopct='%1.1f%%', startangle=90, ax=ax5, colors=['#ffcc99','#66b3ff','#99ff99','#ff9999','#c2c2f0'])
+            ax5.set_title("Distribución de Accidentes por Condiciones de Iluminación")
+            ax5.set_ylabel('')
+            st.subheader("Condiciones de Iluminación en los Accidentes")
+            st.pyplot(fig5)
+            st.write("Este gráfico de torta muestra el porcentaje de accidentes ocurridos bajo diferentes condiciones de iluminación. "
+                     "Puedes ver qué tan frecuente es que los accidentes ocurran durante la noche, con poca visibilidad, etc.")
+        else:
+            st.warning("La columna 'Lighting Conditions' no está disponible en los datos.")
