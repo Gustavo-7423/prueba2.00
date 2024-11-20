@@ -83,16 +83,17 @@ elif main_option == "Ver Gráficos":
             st.warning("La columna 'Worst Injury in Crash' no se encuentra en los datos.")
 
     elif graph_option == "Accidentes por Ciudad o Municipio":
-        # Gráfico de torta: Accidentes por Ciudad o Municipio
+        # Gráfico de barras horizontales: Accidentes por Ciudad o Municipio
         if 'City or Township' in data_clean.columns:
             city_counts = data_clean['City or Township'].value_counts()
-            fig4, ax4 = plt.subplots(figsize=(8, 8))
-            city_counts.plot(kind='pie', autopct='%1.1f%%', startangle=90, ax=ax4, colors=['#ffcc99', '#66b3ff', '#99ff99', '#ff9999'])
-            ax4.set_title("Distribución de Accidentes por Ciudad o Municipio")
-            ax4.set_ylabel('')
+            fig4, ax4 = plt.subplots(figsize=(10, 8))
+            city_counts.plot(kind='barh', color='lightcoral', ax=ax4)
+            ax4.set_title("Número de Accidentes por Ciudad o Municipio")
+            ax4.set_xlabel("Cantidad de Accidentes")
+            ax4.set_ylabel("Ciudad o Municipio")
             st.subheader("Accidentes por Ciudad o Municipio")
             st.pyplot(fig4)
-            st.write("Este gráfico de torta muestra las proporciones de accidentes ocurridos en diferentes "
-                     "ciudades o municipios. Puedes identificar cuál es el área con más accidentes registrados.")
+            st.write("Este gráfico de barras horizontales muestra el número de accidentes ocurridos en cada ciudad o municipio. "
+                     "Es más fácil de leer cuando hay nombres largos o muchas categorías.")
         else:
             st.warning("La columna 'City or Township' no está disponible en los datos.")
