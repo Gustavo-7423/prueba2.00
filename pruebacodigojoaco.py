@@ -99,9 +99,11 @@ elif main_option == "Ver Gráficos":
             st.warning("La columna 'City or Township' no está disponible en los datos.")
 
     elif graph_option == "Condiciones de Iluminación":
-        # Gráfico de torta: Condiciones de iluminación
+        # Gráfico de torta: Condiciones de iluminación (eliminando valores nulos)
         if 'Lighting Conditions' in data_clean.columns:
-            lighting_counts = data_clean['Lighting Conditions'].value_counts()
+            # Eliminar los valores nulos y los que no tienen información relevante
+            lighting_conditions_clean = data_clean['Lighting Conditions'].dropna()
+            lighting_counts = lighting_conditions_clean.value_counts()
             fig5, ax5 = plt.subplots(figsize=(8, 8))
             lighting_counts.plot(kind='pie', autopct='%1.1f%%', startangle=90, ax=ax5, colors=['#ffcc99','#66b3ff','#99ff99','#ff9999','#c2c2f0'])
             ax5.set_title("Distribución de Accidentes por Condiciones de Iluminación")
@@ -109,6 +111,6 @@ elif main_option == "Ver Gráficos":
             st.subheader("Condiciones de Iluminación en los Accidentes")
             st.pyplot(fig5)
             st.write("Este gráfico de torta muestra el porcentaje de accidentes ocurridos bajo diferentes condiciones de iluminación. "
-                     "Puedes ver qué tan frecuente es que los accidentes ocurran durante la noche, con poca visibilidad, etc.")
+                     "Los valores nulos han sido excluidos para garantizar la precisión de la visualización.")
         else:
             st.warning("La columna 'Lighting Conditions' no está disponible en los datos.")
