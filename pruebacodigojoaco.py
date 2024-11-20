@@ -3,20 +3,22 @@ import streamlit as st
 import matplotlib.pyplot as plt
 
 # Configuración de la aplicación
-st.title("Accidentes vehuiculares ocurridos dentro del año 2010-2018")
-st.subheader("en esta pagina web podremos ver los accidentes de autos que ocurrieron a lo largo de los años ")
-st.markdown("<p style='font-size50px;'>Aqui veremos unos grafico con los datos sobres accidentes vehuivulares que han sucedido a lo largo de los 2010-2018 </p>", unsafe_allow_html=True)
+st.title("Accidentes por Mes y Edades")
+st.subheader("Visualización de accidentes de tráfico organizados por mes y las edades de los involucrados")
+
 # Barra lateral para navegación
 option = st.sidebar.selectbox("Selecciona una opción", ["Ver Datos", "Ver Gráficos"])
 
-# esto es para cargar los datos 
-file_path = "ped_crashes.csv"  
-data = pd.read_csv(file_path)
+# Cargar los datos
+file_path = "ped_crashes.csv"  # Asegúrate de colocar el archivo CSV en esta ruta
+
+# Leer el archivo y eliminar comas como separadores de miles
+data = pd.read_csv(file_path, thousands=',')
 
 if option == "Ver Datos":
     # Mostrar los datos en formato tabla
     st.subheader("Datos de Accidentes")
-    st.dataframe(data)  # esto es para que al usuario pueda ver los datos 
+    st.dataframe(data)  # Mostrar los primeros 20 registros por defecto
 
 elif option == "Ver Gráficos":
     # Gráfico de accidentes por mes
@@ -29,7 +31,7 @@ elif option == "Ver Gráficos":
         ], fill_value=0)
     )
 
-    # este es el grafico de barra con los meses y los accidentes que hay 
+    # Crear el gráfico de barras de accidentes por mes
     fig1, ax1 = plt.subplots(figsize=(10, 6))
     accidents_per_month.plot(kind='bar', color='skyblue', ax=ax1)
     ax1.set_title("Número de Accidentes por Mes")
