@@ -52,7 +52,7 @@ elif main_option == "Ver Gráficos":
         st.subheader("Accidentes por Mes")
         st.plotly_chart(fig1)
         st.write("Este gráfico se nos muestra la cantidad de accidentes que en los meses de los años del 2010-2018. "
-                 "se puede observar que el mes con mas es octubre con un("max_value"),.")
+                 "se puede observar que el mes con mas es octubre con un{"max_value"}.")
 
     elif graph_option == "Distribución de Edades":
         # Gráfico de líneas: Distribución de edades (usando Plotly)
