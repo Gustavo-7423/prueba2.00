@@ -5,17 +5,17 @@ import plotly.express as px
 # Configuración de la aplicación
 st.title("Visualización de Datos de Accidentes de Tráfico")
 
-# Cargar los datos
-file_path = "ped_crashes.csv"  # Asegúrate de colocar el archivo CSV en esta ruta
+# carga los daatos 
+file_path = "ped_crashes.csv" 
 data = pd.read_csv(file_path, thousands=',')
 
 # Limpiar los datos eliminando filas con valores no deseados en columnas clave
 data_clean = data[~data['Weather Conditions (2016+)'].isin(['uncoded', 'error', 'UNKNOWN'])]
 
-# Sidebar para navegación principal
+#este es la barra lateral para poder tener una mejor navegacion 
 st.sidebar.title("Navegación")
 main_option = st.sidebar.selectbox(
-    "¿Qué deseas hacer?",
+    "¿Qué deseas ver ?",
     ["Ver Datos", "Ver Gráficos"]
 )
 
@@ -50,8 +50,7 @@ elif main_option == "Ver Gráficos":
 
         st.subheader("Accidentes por Mes")
         st.plotly_chart(fig1)
-        st.write("Este gráfico muestra el número de accidentes registrados en cada mes del año. "
-                 "Puedes observar las tendencias estacionales y meses con más incidentes.")
+        st.write("me falta ponerle algun tipo de descripcion ")
 
     elif graph_option == "Distribución de Edades":
         # Gráfico de líneas: Distribución de edades (usando Plotly)
@@ -67,8 +66,7 @@ elif main_option == "Ver Gráficos":
 
         st.subheader("Distribución de Edades de Involucrados en Accidentes")
         st.plotly_chart(fig2)
-        st.write("Este gráfico representa la distribución de edades de las personas involucradas en accidentes. "
-                 "Las edades con mayor cantidad de incidentes son resaltadas.")
+        st.write("me falta ponerle algun tipo de descripcion ")
 
     elif graph_option == "Lesiones Más Graves":
         # Gráfico de torta: Lesiones más graves en los accidentes (usando Plotly)
@@ -86,8 +84,7 @@ elif main_option == "Ver Gráficos":
             
             st.subheader("Lesiones Más Graves en los Accidentes")
             st.plotly_chart(fig3)
-            st.write("El gráfico de torta muestra las proporciones de las diferentes categorías de lesiones "
-                     "registradas en los accidentes de tráfico.")
+            st.write("me falta ponerle algun tipo de descripcion ")
         else:
             st.warning("La columna 'Worst Injury in Crash' no se encuentra en los datos.")
 
@@ -106,8 +103,7 @@ elif main_option == "Ver Gráficos":
             
             st.subheader("Accidentes por Ciudad o Municipio")
             st.plotly_chart(fig4)
-            st.write("Este gráfico de barras horizontales muestra el número de accidentes ocurridos en cada ciudad o municipio. "
-                     "Es más fácil de leer cuando hay nombres largos o muchas categorías.")
+            st.write("me falta ponerle algun tipo de descripcion ")
         else:
             st.warning("La columna 'City or Township' no está disponible en los datos.")
 
@@ -129,7 +125,6 @@ elif main_option == "Ver Gráficos":
             
             st.subheader("Condiciones de Iluminación en los Accidentes")
             st.plotly_chart(fig5)
-            st.write("Este gráfico de torta muestra el porcentaje de accidentes ocurridos bajo diferentes condiciones de iluminación. "
-                     "Los valores nulos han sido excluidos para garantizar la precisión de la visualización.")
+            st.write("me falta ponerle algun tipo de descripcion ón de la visualización.")
         else:
             st.warning("La columna 'Lighting Conditions' no está disponible en los datos.")
