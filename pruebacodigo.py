@@ -33,7 +33,7 @@ elif main_option == "Ver Gráficos":
     )
 
     if graph_option == "Accidentes por Mes":
-        # Gráfico de barras: Accidentes por mes (usando Plotly)
+        # Gráfico de barras: Accidentes por mes
         accidents_per_month = (
             data_clean['Crash Month']
             .value_counts()
