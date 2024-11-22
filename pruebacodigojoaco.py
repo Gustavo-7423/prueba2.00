@@ -46,15 +46,14 @@ elif main_option == "Ver Gráficos":
         
         fig1 = px.bar(accidents_per_month, 
                       labels={'index': 'Mes', 'value': 'Cantidad de Accidentes'}, 
-                      title=f"Número de Accidentes por Mes\
-                      Min: {min_value} - Max: {max_value}")
+                      title=f"Número de Accidentes por Mes\nMin: {min_value} - Max: {max_value}")
 
         st.subheader("Accidentes por Mes")
         st.plotly_chart(fig1)
-        st.write("Este gráfico se nos muestra la cantidad de accidentes que en los meses de los años del 2010-2018. "
-                 "se puede observar que el mes con mas es octubre con un.")
+        st.write("Este gráfico muestra el número de accidentes registrados en cada mes del año. "
+                 "Puedes observar las tendencias estacionales y meses con más incidentes.")
 
-    elif graph_option == "Grafico de lineas con las edadades mas frecuentes en los accidentes.":
+    elif graph_option == "Distribución de Edades":
         # Gráfico de líneas: Distribución de edades (usando Plotly)
         data_clean['Person Age'] = pd.to_numeric(data_clean['Person Age'], errors='coerce')  # Convertir edades a numérico
         age_distribution = data_clean['Person Age'].dropna().value_counts().sort_index()
@@ -68,8 +67,8 @@ elif main_option == "Ver Gráficos":
 
         st.subheader("Distribución de Edades de Involucrados en Accidentes")
         st.plotly_chart(fig2)
-        st.write("Este gráfico vemos las edades de las personas que mas tienen accidentes de transito y como vemos "
-                 "se nota que la mayor cantidad de incidentes son de [19-29] años.")
+        st.write("Este gráfico representa la distribución de edades de las personas involucradas en accidentes. "
+                 "Las edades con mayor cantidad de incidentes son resaltadas.")
 
     elif graph_option == "Lesiones Más Graves":
         # Gráfico de torta: Lesiones más graves en los accidentes (usando Plotly)
@@ -87,13 +86,12 @@ elif main_option == "Ver Gráficos":
             
             st.subheader("Lesiones Más Graves en los Accidentes")
             st.plotly_chart(fig3)
-            st.write("El gráfico de torta nos muestra las proporciones de las diferentes categorías de lesiones "
-                     "registradas en los accidentes de tráfico."
-                     "C = Posible Lesion, B = Sospecha de lesion menor, A = Sospecha de lesion mayor, O = Sin lesion , K = Lesion Fatal")
+            st.write("El gráfico de torta muestra las proporciones de las diferentes categorías de lesiones "
+                     "registradas en los accidentes de tráfico.")
         else:
             st.warning("La columna 'Worst Injury in Crash' no se encuentra en los datos.")
 
-    elif graph_option == "Accidentes por Ciudad ":
+    elif graph_option == "Accidentes por Ciudad o Municipio":
         # Gráfico de barras horizontales: Accidentes por Ciudad o Municipio (usando Plotly)
         if 'City or Township' in data_clean.columns:
             city_counts = data_clean['City or Township'].value_counts()
@@ -131,6 +129,7 @@ elif main_option == "Ver Gráficos":
             
             st.subheader("Condiciones de Iluminación en los Accidentes")
             st.plotly_chart(fig5)
-            st.write("Este gráfico de torta muestra el porcentaje de accidentes ocurridos bajo diferentes condiciones de iluminación. " )
-                     
+            st.write("Este gráfico de torta muestra el porcentaje de accidentes ocurridos bajo diferentes condiciones de iluminación. "
+                     "Los valores nulos han sido excluidos para garantizar la precisión de la visualización.")
+        else:
             st.warning("La columna 'Lighting Conditions' no está disponible en los datos.")
