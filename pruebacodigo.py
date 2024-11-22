@@ -2,7 +2,8 @@ import pandas as pd
 import streamlit as st
 import plotly.express as px
 
-# Configuración de la aplicación
+# Falta ponerle color a la pagina arregalarla 
+#ponner imagen y mas descripciones 
 st.title("Visualización de Datos de Accidentes de Tráfico")
 
 # carga los daatos 
@@ -51,9 +52,9 @@ elif main_option == "Ver Gráficos":
         st.subheader("Accidentes por Mes")
         st.plotly_chart(fig1)
         st.write("me falta ponerle algun tipo de descripcion ")
-
+ # Gráfico de líneas: Distribución de edades
     elif graph_option == "Distribución de Edades":
-        # Gráfico de líneas: Distribución de edades (usando Plotly)
+        
         data_clean['Person Age'] = pd.to_numeric(data_clean['Person Age'], errors='coerce')  # Convertir edades a numérico
         age_distribution = data_clean['Person Age'].dropna().value_counts().sort_index()
         
@@ -67,9 +68,9 @@ elif main_option == "Ver Gráficos":
         st.subheader("Distribución de Edades de Involucrados en Accidentes")
         st.plotly_chart(fig2)
         st.write("me falta ponerle algun tipo de descripcion ")
-
+# Gráfico de torta: Lesiones más graves en los accidentes
     elif graph_option == "Lesiones Más Graves":
-        # Gráfico de torta: Lesiones más graves en los accidentes (usando Plotly)
+         
         if 'Worst Injury in Crash' in data_clean.columns:
             injury_counts = data_clean['Worst Injury in Crash'].value_counts()
             
@@ -106,9 +107,9 @@ elif main_option == "Ver Gráficos":
             st.write("me falta ponerle algun tipo de descripcion ")
         else:
             st.warning("La columna 'City or Township' no está disponible en los datos.")
-
+# Gráfico de torta: Condiciones de iluminación
     elif graph_option == "Condiciones de Iluminación":
-        # Gráfico de torta: Condiciones de iluminación (eliminando valores nulos, usando Plotly)
+         
         if 'Lighting Conditions' in data_clean.columns:
             # Eliminar los valores nulos y los que no tienen información relevante
             lighting_conditions_clean = data_clean['Lighting Conditions'].dropna()
