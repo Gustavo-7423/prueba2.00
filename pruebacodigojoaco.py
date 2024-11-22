@@ -88,12 +88,12 @@ elif main_option == "Ver Gráficos":
             st.subheader("Lesiones Más Graves en los Accidentes")
             st.plotly_chart(fig3)
             st.write("El gráfico de torta nos muestra las proporciones de las diferentes categorías de lesiones "
-                     "registradas en los accidentes de tráfico" .
+                     "registradas en los accidentes de tráfico."
                      "C = Posible Lesion, B = Sospecha de lesion menor, A = Sospecha de lesion mayor, O = Sin lesion , K = Lesion Fatal")
         else:
             st.warning("La columna 'Worst Injury in Crash' no se encuentra en los datos.")
 
-    elif graph_option == "Accidentes por Ciudad o Municipio":
+    elif graph_option == "Accidentes por Ciudad ":
         # Gráfico de barras horizontales: Accidentes por Ciudad o Municipio (usando Plotly)
         if 'City or Township' in data_clean.columns:
             city_counts = data_clean['City or Township'].value_counts()
